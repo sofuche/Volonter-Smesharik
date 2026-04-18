@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Тест: Твой волонтёрский тотем — Смешарики</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e5f5e8 0%, #cde9df 100%);
+            font-family: 'Segoe UI', 'Nunito', 'Roboto', system-ui, -apple-system, sans-serif;
+            padding: 2rem 1rem;
+            color: #1a3a2e;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fffef7;
+            border-radius: 64px 48px 64px 48px;
+            box-shadow: 0 25px 45px rgba(30, 40, 20, 0.2);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f9a84b, #ffcd7e);
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            color: #2c2b1f;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: #2d2a1c;
+            background: linear-gradient(135deg, #2c2c1c, #4a3e25);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 12px rgba(255,215,130,0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            font-size: 1.1rem;
+            font-weight: 500;
+            background: #fff2df;
+            display: inline-block;
+            padding: 0.4rem 1.3rem;
+            border-radius: 40px;
+            backdrop-filter: blur(2px);
+            box-shadow: inset 0 1px 2px #fff8, 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .quiz-panel {
+            padding: 2rem 2rem 2rem;
+        }
+
+        .question-card {
+            background: #fefaf0;
+            border-radius: 40px;
+            padding: 1.5rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+            border: 1px solid #fff3e0;
+        }
+
+        .question-text {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .q-num {
+            background: #f9a84b;
+            color: #2c2a1e;
+            border-radius: 60px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            background: #ffffffdb;
+            border-radius: 100px;
+            padding: 0.65rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1.5px solid #ffe3bf;
+        }
+
+        .option:hover {
+            background: #fff2e0;
+            transform: translateX(6px);
+            border-color: #f9a84b;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cb9e5c;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            background: white;
+        }
+
+        input[type="radio"]:checked {
+            background: #ff914d;
+            border-color: #ff914d;
+            box-shadow: inset 0 0 0 4px white;
+        }
+
+        .option label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2a3b35;
+            flex: 1;
+            cursor: pointer;
+            line-height: 1.35;
+        }
+
+        button {
+            background: #ff914d;
+            border: none;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 0.9rem 2rem;
+            border-radius: 60px;
+            color: #2d2a1c;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+            margin-top: 1rem;
+            font-family: inherit;
+            box-shadow: 0 6px 0 #b4622a;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #b4622a;
+        }
+
+        .result-area {
+            margin-top: 2rem;
+            background: #f6efe2;
+            border-radius: 48px;
+            padding: 1.8rem;
+            display: none;
+            border: 2px solid #ffdc97;
+            transition: all 0.3s ease;
+        }
+
+        .result-card {
+            text-align: center;
+        }
+
+        .character-avatar {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+            background: #ffe2b5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .hero-name {
+            font-size: 2rem;
+            font-weight: 800;
+            background: #3c3a2c;
+            display: inline-block;
+            padding: 0.2rem 1.5rem;
+            border-radius: 60px;
+            color: #ffeaac;
+            margin-bottom: 1rem;
+        }
+
+        .role-block {
+            background: #f2e5d2;
+            border-radius: 32px;
+            padding: 1rem 1.3rem;
+            margin: 1.2rem 0;
+            text-align: left;
+        }
+
+        .role-title {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.6rem;
+            color: #b45f2b;
+            border-left: 4px solid #f9a84b;
+            padding-left: 12px;
+        }
+
+        .event-list {
+            background: #fff5e6;
+            border-radius: 28px;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            text-align: left;
+            list-style-type: none;
+        }
+
+        .event-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.8rem;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .event-list li::before {
+            content: "🧡";
+            position: absolute;
+            left: 0;
+        }
+
+        .reset-btn {
+            background: #c1cfc3;
+            box-shadow: 0 4px 0 #8f9e8b;
+            color: #2c3e2b;
+            margin-top: 1.5rem;
+            width: auto;
+            padding: 0.6rem 1.8rem;
+            font-size: 1rem;
+            display: inline-block;
+            width: auto;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.2rem;
+            font-size: 0.8rem;
+            background: #e6dccb;
+            color: #5c503a;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-panel {
+                padding: 1.2rem;
+            }
+            .question-text {
+                font-size: 1.2rem;
+            }
+            .hero-name {
+                font-size: 1.6rem;
+            }
+            .character-avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 3.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>✨ Твой волонтёрский тотем: Смешарики ✨</h1>
+        <div class="sub">Узнай, кто ты в мире добра, и найди идеальные мероприятия!</div>
+    </header>
+    <div class="quiz-panel" id="quizApp">
+        <form id="quizForm"></form>
+        <button id="submitBtn">🧭 Узнать свой тотем 🧭</button>
+        <div id="resultContainer" class="result-area"></div>
+    </div>
+    <footer>
+        🌟 Отвечай честно — и откроешь своё волонтёрское сердце. Делай добро с улыбкой!
+    </footer>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // ПЕРСОНАЖИ: 7 героев (Крош, Кар-Карыч, Нюша, Копатыч, Ёжик, Пин, Лосяш)
+    // каждый: эмодзи-аватар, служебные роли, мероприятия
+    // --------------------------------------------------------------
+    const charactersData = {
+        "Крош": {
+            emoji: "🐣",
+            roles: "🔹 Лидер-зажигалка · Двигатель активности · Вовлечение толпы · Работа с энергией группы · Поддержка позитивного настроя",
+            events: "🏃 полумарафон · 🧸 выезд в интернат к детям (спорт, эстафеты) · 🐕 прогулки с собаками в приютах · 🎉 фестивали (анимация, зарядки, флешмобы)"
+        },
+        "Кар-Карыч": {
+            emoji: "🎩",
+            roles: "🔹 Встреча гостей · Создание эстетики и атмосферы · Публичное представление · Поддержка культурного тона · Работа с впечатлением",
+            events: "🎭 Мифический бал · 🎶 концерты (фестиваль h2h) · 🌙 культурные вечера · 🖼️ мероприятия в музеях (вернисажи, экскурсии) · 🎓 выпускные (церемонии)"
+        },
+        "Нюша": {
+            emoji: "🌸",
+            roles: "🔹 Креативное оформление · Генерация идей · Дизайн материалов · Создание настроения · Эмоциональная атмосфера",
+            events: "📸 медиа (фото, видео, соцсети) · 🎨 оформление мероприятий (декор, фотозоны) · 🧸 мероприятия с детьми (творчество, праздники) · 🖌️ дизайн постеров, открыток, точек"
+        },
+        "Копатыч": {
+            emoji: "🍯",
+            roles: "🔹 Ответственность за процессы · Координация логистики · Работа с рисками · Обеспечение ресурсами · Поддержка уязвимых групп",
+            events: "🤝 помощь бабушкам и детям (соцпрограммы) · 📦 логистические мероприятия (встреча грузов, развозка) · ⚠️ мероприятия с высокой ответственностью (безопасность, медподдержка)"
+        },
+        "Ёжик": {
+            emoji: "🌿",
+            roles: "🔹 Тихая, надёжная помощь · Внимание к деталям · Забота о природе и животных · Донорская поддержка · Работа в тени без шумихи",
+            events: "👵 помощь бабушкам и детям · 🌱 эко-мероприятия (посадка деревьев, субботники) · 🐾 приюты для животных (выгул, уход) · 🩸 День донора"
+        },
+        "Пин": {
+            emoji: "🔧",
+            roles: "🔹 Техническое сопровождение · Сборка/ремонт · Монтаж и демонтаж · Решение инженерных задач · Работа руками",
+            events: "🔬 научные конференции (техподдержка) · 🤖 ДОД (инженерные зоны) · 🏛️ музеи и выставки (монтаж экспонатов) · 🛠️ мастерские по сборке/ремонту · ⚙️ фестивали робототехники · 🏚️ ремонтные мастерские в приютах/интернатах"
+        },
+        "Лосяш": {
+            emoji: "🦌",
+            roles: "🔹 Обучение и консультирование · Модерация дискуссий · Аналитика и структурирование · Подготовка материалов · Экспертная поддержка",
+            events: "📚 научные конференции (лекции, модерация) · 🧠 ДОД (образовательные зоны, консультации) · 🏺 музеи и выставки (экскурсии) · 🏅 олимпиады и конкурсы (жюри, сопровождение) · 🎙️ лектории для волонтёров/детей/бабушек · 📖 просветительские мероприятия в интернатах"
+        }
+    };
+
+    const charList = ["Крош", "Кар-Карыч", "Нюша", "Копатыч", "Ёжик", "Пин", "Лосяш"];
+
+    // ---------- 10 ВОПРОСОВ (каждый вариант привязан к одному персонажу) ----------
+    const questions = [
+        {
+            text: "Какое занятие приносит тебе настоящую радость?",
+            options: [
+                { text: "Активные игры, спорт, движение — я везде успеваю!", char: "Крош" },
+                { text: "Искусство, театр, балы, элегантные вечера", char: "Кар-Карыч" },
+                { text: "Творчество, дизайн, украшать мир и создавать атмосферу", char: "Нюша" },
+                { text: "Помогать по хозяйству, заботиться о людях, быть опорой", char: "Копатыч" },
+                { text: "Тихая забота о природе, животных или донорство", char: "Ёжик" },
+                { text: "Мастерить, чинить, собирать механизмы", char: "Пин" },
+                { text: "Учиться, объяснять, анализировать и просвещать", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Какая волонтёрская активность зовёт тебя больше всего?",
+            options: [
+                { text: "Полумарафон, детский праздник или фестиваль с танцами", char: "Крош" },
+                { text: "Культурный вечер, бал или встреча гостей в музее", char: "Кар-Карыч" },
+                { text: "Оформлять сцену, делать открытки и постеры для мероприятий", char: "Нюша" },
+                { text: "Логистика и помощь бабушкам, детям — там, где важна надёжность", char: "Копатыч" },
+                { text: "Эко-субботник, приют для животных или донорство", char: "Ёжик" },
+                { text: "Техническое сопровождение конференции или ремонт в приюте", char: "Пин" },
+                { text: "Лекции, экскурсии, олимпиады — делиться знаниями", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Как друзья описывают твой характер?",
+            options: [
+                { text: "Энерджайзер и оптимист, душа компании", char: "Крош" },
+                { text: "Элегантный, интеллигентный, артистичный", char: "Кар-Карыч" },
+                { text: "Креативный, эмоциональный, творческий", char: "Нюша" },
+                { text: "Надёжный, как скала, всегда выручит", char: "Копатыч" },
+                { text: "Добрый, заботливый, скромный", char: "Ёжик" },
+                { text: "Мастер на все руки, технический гений", char: "Пин" },
+                { text: "Умный, вдумчивый, люблю всё структурировать", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Что для тебя важнее в волонтёрстве?",
+            options: [
+                { text: "Драйв, общение, радость и новые знакомства", char: "Крош" },
+                { text: "Красота, эстетика и культурное наполнение", char: "Кар-Карыч" },
+                { text: "Возможность творить и вдохновлять", char: "Нюша" },
+                { text: "Порядок, безопасность, реальная польза", char: "Копатыч" },
+                { text: "Тихая забота, помощь тем, кто не может просить", char: "Ёжик" },
+                { text: "Решать сложные инженерные задачи", char: "Пин" },
+                { text: "Делиться знаниями и учить других", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Какая атмосфера тебе ближе всего?",
+            options: [
+                { text: "Драйв, музыка, движуха, активный отдых", char: "Крош" },
+                { text: "Культурный лоск, элегантность, искусство", char: "Кар-Карыч" },
+                { text: "Творческий беспорядок, радость и вдохновение", char: "Нюша" },
+                { text: "Спокойная уверенность, домашнее тепло", char: "Копатыч" },
+                { text: "Умиротворение, природа, тихая забота", char: "Ёжик" },
+                { text: "Мастерская, инструменты, запах дерева и металла", char: "Пин" },
+                { text: "Библиотека, лекторий, интеллектуальная беседа", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "На мероприятии ты скорее всего…",
+            options: [
+                { text: "Зажигаю и вовлекаю всех в активность", char: "Крош" },
+                { text: "Создаю элегантную атмосферу, общаюсь с гостями", char: "Кар-Карыч" },
+                { text: "Придумываю концепцию и отвечаю за визуал", char: "Нюша" },
+                { text: "Организую процессы, слежу за порядком", char: "Копатыч" },
+                { text: "Помогаю тихо, делаю то, о чём забыли другие", char: "Ёжик" },
+                { text: "Чиню сломанное, собираю стенды, работаю руками", char: "Пин" },
+                { text: "Модерирую дискуссию или провожу экскурсию", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Какая мотивация ведёт тебя в добрых делах?",
+            options: [
+                { text: "Эмоции, веселье и заряд бодрости", char: "Крош" },
+                { text: "Вдохновлять людей красотой", char: "Кар-Карыч" },
+                { text: "Создавать праздник через креатив", char: "Нюша" },
+                { text: "Быть надёжной опорой для других", char: "Копатыч" },
+                { text: "Заботиться о слабых и природе", char: "Ёжик" },
+                { text: "Решать реальные технические проблемы", char: "Пин" },
+                { text: "Обучать и делать мир осмысленнее", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Если бы ты выбрал волонтёрский проект на выходные:",
+            options: [
+                { text: "Спортивный фестиваль или детский лагерь", char: "Крош" },
+                { text: "Бал или концерт в музее", char: "Кар-Карыч" },
+                { text: "Оформление благотворительной ярмарки", char: "Нюша" },
+                { text: "Координация помощи пожилым людям", char: "Копатыч" },
+                { text: "Субботник в приюте для собак", char: "Ёжик" },
+                { text: "Ремонт техники в интернате", char: "Пин" },
+                { text: "Лекторий для школьников о науке", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Что говорят о тебе в команде?",
+            options: [
+                { text: "С ним не соскучишься, везде успевает", char: "Крош" },
+                { text: "Он создаёт атмосферу праздника и вкуса", char: "Кар-Карыч" },
+                { text: "Генератор идей и душа команды", char: "Нюша" },
+                { text: "На него можно положиться в любой ситуации", char: "Копатыч" },
+                { text: "Скромный трудяга, но без него бы всё развалилось", char: "Ёжик" },
+                { text: "Если что-то сломалось — зовите Пина", char: "Пин" },
+                { text: "Лучший объяснятель и стратег", char: "Лосяш" }
+            ]
+        },
+        {
+            text: "Фраза, которая отражает твой подход к жизни:",
+            options: [
+                { text: "Движение — жизнь, успеваю всё и везде!", char: "Крош" },
+                { text: "Красота спасёт мир, особенно если её подать изящно", char: "Кар-Карыч" },
+                { text: "Творчество — мой язык, делаю мир ярче", char: "Нюша" },
+                { text: "Надёжность важнее блеска", char: "Копатыч" },
+                { text: "Тихая забота меняет мир", char: "Ёжик" },
+                { text: "Лучше один раз сделать руками, чем сто раз обсудить", char: "Пин" },
+                { text: "Знание — сила, а доброе знание — крылья", char: "Лосяш" }
+            ]
+        }
+    ];
+
+    // Рендер формы
+    function renderTest() {
+        const form = document.getElementById('quizForm');
+        form.innerHTML = '';
+        questions.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-card';
+            qDiv.innerHTML = `
+                <div class="question-text">
+                    <span class="q-num">Вопрос ${idx+1}</span>
+                    <span>${q.text}</span>
+                </div>
+                <div class="options" data-qidx="${idx}"></div>
+            `;
+            const optionsDiv = qDiv.querySelector('.options');
+            q.options.forEach((opt, optIdx) => {
+                const optionId = `q${idx}_opt${optIdx}`;
+                const optDiv = document.createElement('div');
+                optDiv.className = 'option';
+                optDiv.innerHTML = `
+                    <input type="radio" name="q${idx}" value="${opt.char}" id="${optionId}">
+                    <label for="${optionId}">${opt.text}</label>
+                `;
+                optionsDiv.appendChild(optDiv);
+            });
+            form.appendChild(qDiv);
+        });
+    }
+
+    // Подсчёт результатов
+    function computeResult() {
+        const scores = {};
+        charList.forEach(ch => scores[ch] = 0);
+        let answered = 0;
+        for (let i = 0; i < questions.length; i++) {
+            const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected) {
+                answered++;
+                const charVal = selected.value;
+                if (scores[charVal] !== undefined) scores[charVal]++;
+            }
+        }
+        if (answered === 0) return null;
+        let maxChar = charList[0];
+        let maxScore = scores[maxChar];
+        for (let ch of charList) {
+            if (scores[ch] > maxScore) {
+                maxScore = scores[ch];
+                maxChar = ch;
+            }
+        }
+        return maxChar;
+    }
+
+    // отображение результата с картинкой (эмодзи-аватар) и полными рекомендациями
+    function displayResult(characterKey) {
+        const data = charactersData[characterKey];
+        if (!data) return;
+        const container = document.getElementById('resultContainer');
+        container.style.display = 'block';
+        container.innerHTML = `
+            <div class="result-card">
+                <div class="character-avatar">${data.emoji}</div>
+                <div class="hero-name">${characterKey}</div>
+                <div class="role-block">
+                    <div class="role-title">✨ Твоя волонтёрская роль</div>
+                    <div style="font-size: 1rem; line-height: 1.4;">${data.roles}</div>
+                </div>
+                <div style="background:#fff5e6; border-radius: 32px; padding: 0.8rem 1.2rem; text-align: left;">
+                    <div class="role-title" style="margin-top:0;">🧭 Рекомендованные мероприятия и форматы</div>
+                    <ul class="event-list">
+                        ${data.events.split('·').map(item => `<li>${item.trim()}</li>`).join('')}
+                    </ul>
+                </div>
+                <button class="reset-btn" id="resetTestBtn">🔄 Пройти тест заново</button>
+            </div>
+        `;
+        container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const resetBtn = document.getElementById('resetTestBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                const allRadios = document.querySelectorAll('input[type="radio"]');
+                allRadios.forEach(radio => radio.checked = false);
+                container.style.display = 'none';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    }
+
+    function onSubmit() {
+        const winner = computeResult();
+        if (!winner) {
+            alert("💛 Ответь хотя бы на один вопрос, чтобы узнать свой волонтёрский тотем!");
+            return;
+        }
+        displayResult(winner);
+    }
+
+    renderTest();
+    document.getElementById('submitBtn').addEventListener('click', onSubmit);
+</script>
+</body>
+</html>
