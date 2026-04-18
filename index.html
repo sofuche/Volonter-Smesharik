@@ -172,6 +172,7 @@
 
         .result-card {
             text-align: center;
+            display: block;
         }
 
         .character-avatar {
@@ -198,16 +199,20 @@
             margin-bottom: 0.75rem;
         }
 
+        /* ГЛАВНОЕ ИСПРАВЛЕНИЕ: описание строго под именем, не справа */
         .short-desc {
             font-size: 1rem;
             background: #e7dcc8;
             border-radius: 60px;
             padding: 0.5rem 1.2rem;
             margin: 0.5rem auto 1rem;
-            display: inline-block;
+            display: block;
+            width: fit-content;
             max-width: 90%;
             font-style: italic;
             color: #3a2c1c;
+            clear: both;
+            text-align: center;
         }
 
         .talent-block {
@@ -242,15 +247,7 @@
 
         .event-list li {
             padding: 0.4rem 0;
-            padding-left: 1.8rem;
-            position: relative;
             font-weight: 500;
-        }
-
-        .event-list li::before {
-            content: "🧡";
-            position: absolute;
-            left: 0;
         }
 
         .reset-btn {
@@ -298,25 +295,21 @@
 <body>
 <div class="container">
     <header>
-        <h1>✨ Твой волонтёрский тотем: Смешарики ✨</h1>
+        <h1>✨Твой волонтёрский тотем: Смешарики✨</h1>
         <div class="sub">Узнай, кто ты в мире добра, и найди идеальные мероприятия!</div>
     </header>
     <div class="quiz-panel" id="quizApp">
         <form id="quizForm"></form>
-        <button id="submitBtn">🧭 Узнать свой тотем 🧭</button>
+        <button id="submitBtn">🧭Узнать свой тотем🧭</button>
         <div id="resultContainer" class="result-area"></div>
     </div>
     <footer>
-        🌟 Отвечай честно — и откроешь своё волонтёрское сердце.<br>
-        🤍 Делай добро с <a href="https://vk.com/vcmephi" target="_blank" class="footer-link">Волонтёрским центром НИЯУ МИФИ</a>!
+        Отвечай честно — и откроешь своё волонтёрское сердце.🌟<br>
+        Делай добро с <a href="https://vk.com/vcmephi" target="_blank" class="footer-link">Волонтёрским центром НИЯУ МИФИ</a>! 🫶
     </footer>
 </div>
 
 <script>
-    // --------------------------------------------------------------
-    // ПЕРСОНАЖИ: Крош, Кар-Карыч, Нюша, Копатыч, Ёжик, Пин, Лосяш
-    // краткое описание (под именем), суперсилы, мероприятия
-    // --------------------------------------------------------------
     const charactersData = {
         "Крош": {
             emoji: "🥕",
@@ -364,7 +357,6 @@
 
     const charList = ["Крош", "Кар-Карыч", "Нюша", "Копатыч", "Ёжик", "Пин", "Лосяш"];
 
-    // ---------- 9 ВОПРОСОВ ----------
     const questions = [
         {
             text: "Какое занятие приносит тебе настоящую радость?",
@@ -528,7 +520,6 @@
         return maxChar;
     }
 
-    // ОТОБРАЖЕНИЕ РЕЗУЛЬТАТА: эмодзи -> имя -> краткое описание ПОД ИМЕНЕМ
     function displayResult(characterKey) {
         const data = charactersData[characterKey];
         if (!data) return;
